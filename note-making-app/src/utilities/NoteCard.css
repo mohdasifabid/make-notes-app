@@ -1,0 +1,30 @@
+.note-card-container{
+    position: relative;
+    border: .1rem solid var(--secondary-color);
+}
+.note-card-container:hover{
+    box-shadow: .1rem .1rem .1rem .1rem var(--secondary-color);
+}
+.note-card-items{
+    padding: 0 1rem;
+}
+.note-card-pin-icon{
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    padding: .5rem;
+    cursor: pointer;
+}
+.note-card-pin-icon:hover{
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+}
+.note-card-icons{
+    color: var(--primary-color);
+    padding: 0 .5rem 1rem 1.5rem;
+    cursor: pointer;
+}
+.note-card-delete-icon{
+    position: absolute;
+
+}
