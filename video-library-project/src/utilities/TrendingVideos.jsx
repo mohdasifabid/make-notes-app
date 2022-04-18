@@ -11,7 +11,7 @@ export const TrendingVideos = () => {
         <h1 className="trending-videos-heading">Trending Videos</h1>
         <div className="trending-videos-card-container">
           {state.videos.map((item) => {
-            return <VideoCard item={item} />;
+            return <VideoCard item={item} key={item.id} />;
           })}
         </div>
       </div>

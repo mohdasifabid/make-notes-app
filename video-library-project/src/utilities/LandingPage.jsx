@@ -40,7 +40,7 @@ export const LandingPage = () => {
               Playlist
             </a>
           </Link>
-          <Link to="/" className="landing-page-body-links">
+          {/* <Link to="/" className="landing-page-body-links">
             <a class="duck-list-content-type-items" href="">
               <div class="duck-link-avatar-polygon-type">
                 <a href="">
@@ -49,7 +49,7 @@ export const LandingPage = () => {
               </div>
               Liked
             </a>
-          </Link>
+          </Link> */}
           <Link to="/watch-later" className="landing-page-body-links">
             <a class="duck-list-content-type-items" href="">
               <div class="duck-link-avatar-polygon-type">

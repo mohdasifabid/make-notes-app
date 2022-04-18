@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { useAuthProvider } from "./authProvider";
 export const Navbar = () => {
+  const { state, dispatch } = useAuthProvider();
   return (
     <div
       class="duck-navbar-container"
@@ -9,25 +11,13 @@ export const Navbar = () => {
         padding: ".5rem 0",
       }}
     >
-      {/* <div class="duck-navbar-left-items"> */}
       <Link class="duck-navbar-left-items" to="/">
         <a href="" class="duck-navbar-brand duck-navbar-item">
           MyBrand
         </a>
       </Link>
-      {/* </div> */}
-      <div class="duck-navbar-right-items">
-        {/* <a href="" class="duck-navbar-home duck-navbar-item">
-          History
-        </a>
-          <a href="" class="duck-navbar-install duck-navbar-item">
-            Trending
-          </a> */}
-        {/* <a href="" class="duck-navbar-install duck-navbar-item">
-          Contact
-        </a> */}
-      </div>
-      <Link to="/login">
+      <div class="duck-navbar-right-items"></div>
+      {state.isLogin ? (
         <button
           style={{
             width: "8rem",
@@ -36,10 +26,28 @@ export const Navbar = () => {
             border: "none",
           }}
           class="duck-primary-btn-s duck-primary-btn"
+          onClick={() => {
+            dispatch({ type: "LOGIN_STATUS", payload: false });
+            localStorage.removeItem("encodedToken");
+          }}
         >
-          Login
+          Logout
         </button>
-      </Link>
+      ) : (
+        <Link to="/login">
+          <button
+            style={{
+              width: "8rem",
+              height: ".75rem",
+              margin: ".4rem 1rem ",
+              border: "none",
+            }}
+            class="duck-primary-btn-s duck-primary-btn"
+          >
+            Login
+          </button>
+        </Link>
+      )}
     </div>
   );
 };

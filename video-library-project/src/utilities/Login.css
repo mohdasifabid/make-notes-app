@@ -4,16 +4,15 @@
 }
 
 .login-inputs-btn-link-container{
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    margin: 4rem;
+    margin: 2rem;
     width: 20rem;
-    height: 23rem;
-    /* border: 1px solid black; */
-    box-shadow: 0rem .01rem .15rem .1rem black;
+    box-shadow: 0rem .01rem .15rem .1rem var(--primary-color);
     border-radius: 1rem;
 }
 .login-page-body-content input:focus{

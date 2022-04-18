@@ -1,9 +1,7 @@
 import { Navbar } from "./Navbar";
 import { VideoCard } from "./VideoCard";
 import "./History.css";
-import { useVideo } from "../useVideo";
 export const History = () => {
-  const { state } = useVideo();
   return (
     <div>
       <Navbar />

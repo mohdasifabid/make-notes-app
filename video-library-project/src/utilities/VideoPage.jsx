@@ -10,12 +10,9 @@ import { useParams } from "react-router-dom";
 export const VideoPage = () => {
   const { state, dispatch } = useVideo();
   const { videoId } = useParams();
-  console.log("vidopage", videoId);
 
   const videoToPlay = state.videos.find((item) => item.video === videoId);
   const restVideos = state.videos.filter((item) => item.video !== videoId);
-  console.log(videoToPlay);
-  console.log(state.videos);
   return (
     <div>
       <Navbar />

@@ -1,7 +1,31 @@
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthProvider } from "./authProvider";
 import "./Login.css";
 import { Navbar } from "./Navbar";
 
 export const Login = () => {
+  const { state, dispatch } = useAuthProvider();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const saveEmailPassword = async () => {
+    const response = await axios.post("/api/auth/login", {
+      email: email,
+      password: password,
+    });
+
+    if (response.status === 200) {
+      dispatch({ type: "LOGIN_STATUS", payload: true });
+      localStorage.setItem("encodedToken", response.data.encodedToken);
+      navigate("/trending");
+    }
+
+    console.log(response);
+  };
+  console.log(state.isLogin);
   return (
     <div>
       <Navbar />
@@ -13,6 +37,7 @@ export const Login = () => {
               type="email"
               class="duck-email-input duck-inputs"
               placeholder="enter your email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </label>
           <label for="duck-password-input-label input-and-labels">
@@ -21,14 +46,22 @@ export const Login = () => {
               type="password"
               class="duck-password-input duck-inputs"
               placeholder="enter your password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <button class="duck-primary-btn-s duck-primary-btn">Login</button>
+          <button
+            class="duck-primary-btn-s duck-primary-btn"
+            onClick={saveEmailPassword}
+          >
+            Login
+          </button>
           <p>
-            Not a user?{" "}
-            <a href="">
-              <strong>create account</strong>
-            </a>
+            Not a user?
+            <Link to="/signup">
+              <a href="">
+                <strong>create account</strong>
+              </a>
+            </Link>
           </p>
         </div>
       </div>
