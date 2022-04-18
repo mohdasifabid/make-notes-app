@@ -16,7 +16,7 @@ export const LandscapeResponsiveVisual = () => {
         <p className="lrv-text-content-bold">Explore unlimited cool videos</p>
       </div>
 
-      <Link to="/video-page">
+      <Link to="/trending">
         <button
           style={{
             height: ".75rem",

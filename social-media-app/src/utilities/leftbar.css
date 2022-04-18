@@ -1,0 +1,37 @@
+
+.leftbar{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: .5rem;
+}
+.logo{
+    font-size: xx-large;
+    color: #1D9BF0;
+    padding: .5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.logo:hover{
+    background-color: lightblue;
+}
+.create-post {
+    font-size: xx-large;
+    color: #1D9BF0;
+    padding: .5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.create-post:hover{
+    background-color: lightblue;
+}
+.icons{
+    font-size: x-large;
+    color: #0F1419;
+    padding: .5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.icons:hover{
+    background-color: lightgray;
+}

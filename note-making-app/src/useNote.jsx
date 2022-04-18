@@ -1,73 +1,115 @@
+import { act } from "@testing-library/react";
 import { createContext, useContext, useReducer } from "react";
 const NoteContext = createContext();
 const useNote = () => useContext(NoteContext);
 
 const noteReducer = (state, action) => {
   switch (action.type) {
-    case "SET_DATA":
+    case "SAVE_DATA":
+      const dbCopyToSaveData = [...state.dataBase];
       localStorage.setItem(
-        "ourDataBase",
-        JSON.stringify([...state.ourDataBase, action.payload])
+        "dataBase",
+        JSON.stringify([...dbCopyToSaveData, action.payload])
       );
       return {
         ...state,
-        ourDataBase: [...state.ourDataBase, action.payload],
+        dataBase: [...dbCopyToSaveData, action.payload],
       };
     case "GET_DATA":
       return {
         ...state,
-        ourDataBase: [...state.ourDataBase, action.payload],
+        dataBase: action.payload,
       };
     case "SET_PINNED_NOTES":
-      const indexOfPinnedNote = state.ourDataBase.indexOf(action.payload);
+      const indexOfPinnedNote = state.dataBase.findIndex(
+        (item) => item.id === action.payload.id
+      );
       if (indexOfPinnedNote !== -1) {
-        return state.ourDataBase.splice(indexOfPinnedNote, 1);
+        return state.dataBase.splice(indexOfPinnedNote, 1);
       }
 
       return {
         ...state,
         ourPinnedNotes: [...state.ourPinnedNotes, action.payload],
       };
-    case "DELETE_NOTE":
-      const indexOfDeletedNote = state.ourDataBase.indexOf(action.payload);
-      if (indexOfDeletedNote !== -1) {
-        return state.ourDataBase.splice(indexOfDeletedNote, 1);
-      }
+    case "SET_UNPINNED_NOTES":
+      const ourPinnedNotesCopy = [...state.ourPinnedNotes];
 
       return {
         ...state,
-        ourTrash: [...state.ourTrash, action.payload],
+        ourPinnedNotes: ourPinnedNotesCopy.filter(
+          (item) => item.id !== action.payload.id
+        ),
+        dataBase: [...state.dataBase, action.payload],
       };
-    case "SET_IMPORTANT_NOTES":
-      return {
-        ...state,
-        ourImpNotes: [...state.ourImpNotes, action.payload],
-      };
-    case "SET_REMINDER_NOTES":
-      return {
-        ...state,
-        ourReminderNotes: [...state.ourReminderNotes, action.payload],
-      };
-    case "SET_ARCHIVED_NOTES":
-      const indexOfArchivedNote = state.ourDataBase.indexOf(action.payload);
-      if (indexOfArchivedNote !== -1) {
-        return state.ourDataBase.splice(indexOfArchivedNote, 1);
+    case "DELETE_NOTE":
+      const dbCopyToDeleteNote = [...state.dataBase];
+      const indexOfDeletedNote = dbCopyToDeleteNote.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (indexOfDeletedNote !== -1) {
+        dbCopyToDeleteNote.splice(indexOfDeletedNote, 1);
       }
       return {
         ...state,
-        ourArchivedNotes: [...state.ourArchivedNotes, action.payload],
+        dataBase: dbCopyToDeleteNote,
       };
+    case "DELETE_NOTE_FROM_ARCHIVE":
+      const ourArchivedNotesCopyToDelete = [...state.ourArchivedNotes];
+
+      return {
+        ...state,
+        ourArchivedNotes: ourArchivedNotesCopyToDelete.filter(
+          (item) => item.id !== action.payload.id
+        ),
+      };
+    case "DELETE_NOTE_FROM_PINNED":
+      const ourPinnedNotesCopyToDelete = [...state.ourPinnedNotes];
+      return {
+        ...state,
+        ourPinnedNotes: ourPinnedNotesCopyToDelete.filter(
+          (item) => item.id !== action.payload.id
+        ),
+      };
+
+    case "SET_ARCHIVED_NOTES":
+      const ourDataBaseCopyForArchive = [...state.dataBase];
+
+      return {
+        ...state,
+        ourArchivedNotes: [...state.ourArchivedNotes, action.payload],
+        dataBase: ourDataBaseCopyForArchive.filter(
+          (item) => item.id !== action.payload.id
+        ),
+      };
+    case "UPDATE_NOTE":
+      console.log(action.payload);
+      const copyForUpdate = [...state.dataBase];
+      const indexOfUpdateNote = copyForUpdate.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      copyForUpdate[indexOfUpdateNote] = action.payload;
+      return {
+        ...state,
+        database: copyForUpdate,
+      };
+    case "SEARCH_NOTE":
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
+
     default:
       return state;
   }
 };
 const initialState = {
-  ourDataBase: [],
+  dataBase: [],
   ourPinnedNotes: [],
-  ourTrash: [],
-  ourImpNotes: [],
-  ourReminderNotes: [],
+  searchQuery: [],
   ourArchivedNotes: [],
+  labels: [],
 };
 const NoteProvider = ({ children }) => {
   const [state, dispatch] = useReducer(noteReducer, initialState);

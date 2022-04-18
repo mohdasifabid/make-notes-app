@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNote } from "../useNote";
 import { Footer } from "./Footer";
 import "./LandingPage.css";
@@ -6,8 +7,28 @@ import { NoteCard } from "./NoteCard";
 import { NoteMaker } from "./NoteMaker";
 
 export const LandingPage = () => {
-  const { state } = useNote();
-  console.log(state.ourDataBase);
+  const { state, dispatch } = useNote();
+
+  useEffect(() => {
+    const getDataFunction = () => {
+      const gotData = JSON.parse(localStorage.getItem("dataBase"))
+        ? JSON.parse(localStorage.getItem("dataBase"))
+        : [];
+      dispatch({ type: "GET_DATA", payload: gotData });
+    };
+    getDataFunction();
+  }, []);
+
+  const searchNoteFunction = (data, meter) => {
+    if (meter && meter.length > 0) {
+      return data.filter((item) =>
+        item.title.toLowerCase().includes(meter.toLowerCase())
+      );
+    }
+    return data;
+  };
+  const searchedNote = searchNoteFunction(state.dataBase, state.searchQuery);
+  console.log("this is our data", state.dataBase);
   return (
     <div>
       <Navbar />
@@ -15,14 +36,16 @@ export const LandingPage = () => {
         <div className="landing-page-note-maker-container">
           <NoteMaker />
         </div>
+        {state.ourPinnedNotes.length > 0 && <h2>Pinned Notes</h2>}
         <div className="landing-page-pinned-notes-container">
           {state.ourPinnedNotes.map((item) => {
-            return <NoteCard key={item.id} item={item} />;
+            return <NoteCard type="pin" key={item.id} item={item} />;
           })}
         </div>
+        {state.dataBase.length > 0 && <h2> Notes</h2>}
         <div className="landing-page-note-cards-container">
-          {state.ourDataBase.map((item) => {
-            return <NoteCard key={item.id} item={item} />;
+          {searchedNote.map((item) => {
+            return <NoteCard item={item} id={item.id} />;
           })}
         </div>
       </div>

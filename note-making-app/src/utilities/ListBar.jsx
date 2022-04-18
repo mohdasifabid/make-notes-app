@@ -7,24 +7,30 @@ export const ListBar = () => {
         <i class="list-bar-list-icon fa-solid fa-list"></i>
 
         <div className="appear-on-hover">
-          <span className="appear-on-hover-content">
-            <i class="list-bar-icons fa-solid fa-star"></i>
-            Important
-          </span>
-          <span className="appear-on-hover-content">
-            <i class="list-bar-icons fa-solid fa-bell"></i>
-            Reminder
-          </span>
-          <Link to="/archive">
+          <Link to="/" className="listbar-links">
+            <span className="appear-on-hover-content">
+              <i class="list-bar-icons fa-solid fa-home"></i>
+              Home
+            </span>
+          </Link>
+          <Link to="/labels" className="listbar-links">
+            <span className="appear-on-hover-content">
+              <i class="list-bar-icons fa-solid fa-tag"></i>
+              Labels
+            </span>
+          </Link>
+          <Link to="/archive" className="listbar-links">
             <span className="appear-on-hover-content">
               <i class="list-bar-icons fa-solid fa-box-archive"></i>
               Archive
             </span>
           </Link>
-          <span className="appear-on-hover-content">
-            <i class="list-bar-icons fa-solid fa-trash-can"></i>
-            Trash
-          </span>
+          <Link to="/login" className="listbar-links">
+            <span className="appear-on-hover-content">
+              <i class="list-bar-icons fa-solid fa-user"></i>
+              Profile
+            </span>
+          </Link>
         </div>
       </div>
     </div>

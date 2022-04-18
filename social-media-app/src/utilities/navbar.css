@@ -1,0 +1,23 @@
+.logo-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 1rem ;
+    
+}
+.home{
+    padding-left: .5rem;
+    cursor: pointer;
+}
+
+
+.star {
+    font-size: x-large;
+    color: #0F1419;
+    cursor: pointer;
+    padding: .5rem;
+    border-radius: 50%;
+}
+.star:hover{
+    background-color: lightgray;
+}

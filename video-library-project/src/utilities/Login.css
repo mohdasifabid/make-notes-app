@@ -1,22 +1,32 @@
 .login-page-body-content{
-    margin: 4rem 0;
-    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.login-inputs-btn-link-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.login-page-body-content input{
-    margin: 0 0 2rem 0;
-    min-width: 25rem;
-    
+    padding: 2rem;
+    margin: 4rem;
+    width: 20rem;
+    height: 23rem;
+    /* border: 1px solid black; */
+    box-shadow: 0rem .01rem .15rem .1rem black;
+    border-radius: 1rem;
 }
 .login-page-body-content input:focus{
     outline: none;
     border: .1rem solid var(--primary-color);
 }
-
+.login-page-body-content input{
+    outline: none;
+    border: .1rem solid var(--primary-color);
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+    padding-left:  1.5rem;
+}
 .login-page-body-content div{
     text-align: center;
     font-size: large;

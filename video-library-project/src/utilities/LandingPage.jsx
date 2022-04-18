@@ -1,7 +1,7 @@
+import "./LandingPage.css";
+import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
 import { LandscapeResponsiveVisual } from "./LandscapeResponsiveVisual";
-import { Navbar } from "./Navbar";
-import "./LandingPage.css";
 
 export const LandingPage = () => {
   return (

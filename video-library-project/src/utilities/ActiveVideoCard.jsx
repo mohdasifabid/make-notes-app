@@ -1,20 +1,19 @@
 import { useVideo } from "../useVideo";
 import "./ActiveVideoCard.css";
 
-export const ActiveVideoCard = () => {
+export const ActiveVideoCard = ({ videoToPlay }) => {
   const { state, dispatch } = useVideo();
-  const { title, description, creator, video } = state.watchNow;
   const { setLikes, setDislikes, watchNow } = state;
   return (
     <div className="active-video-card-container">
       <p className="active-video-card-title">
-        <strong>{title}</strong>
+        <strong>{videoToPlay.title}</strong>
       </p>
-      <p className="active-video-card-sub-title">{creator}</p>
+      <p className="active-video-card-sub-title">{videoToPlay.creator}</p>
 
       <iframe
         className="active-video-card-media"
-        src={`https://youtube.com/embed/${state.watchNow.video}`}
+        src={`https://youtube.com/embed/${videoToPlay.video}`}
         frameBorder="0"
         allow="autoplay; encrypted-media"
         allowFullScreen
@@ -65,7 +64,9 @@ export const ActiveVideoCard = () => {
         <p className="active-video-card-description-title">
           <strong>Description</strong>
         </p>
-        <p className="active-video-card-description-content">{description}</p>
+        <p className="active-video-card-description-content">
+          {videoToPlay.description}
+        </p>
       </div>
     </div>
   );

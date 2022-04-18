@@ -18,6 +18,7 @@
     color: var(--secondary-color);
     padding: 1rem 0;
     display: block;
+    
 }
 .appear-on-hover-content:hover{
     background-color: black;
@@ -35,4 +36,7 @@
     cursor: pointer;
     margin-left: 1rem;
     margin-right: .5rem;
+}
+.listbar-links{
+    text-decoration: none;
 }
