@@ -28,7 +28,6 @@ export const LandingPage = () => {
     return data;
   };
   const searchedNote = searchNoteFunction(state.dataBase, state.searchQuery);
-  console.log("this is our data", state.dataBase);
   return (
     <div>
       <Navbar />

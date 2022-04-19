@@ -1,5 +1,4 @@
 /* archive page */
-
 .archive-page-body{
   display: flex;
   flex-direction: column;
@@ -38,15 +37,18 @@ align-items: center;
 .login-page-body{
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 .login-page-inputs-btn-container{
+  overflow: hidden;
+  padding: 1rem;
   width: 25rem;
-  min-height: 25rem;
+  min-height: 24rem;
   display:flex ;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 4rem;
+  margin: 4rem 0;
   border-radius: 1rem;
   box-shadow: 4px 2px 9px 2px var(--primary-color);
 }

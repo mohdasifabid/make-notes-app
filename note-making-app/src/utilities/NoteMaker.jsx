@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNote } from "../useNote";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 import "./NoteMaker.css";
+import axios from "axios";
 
 export const NoteMaker = () => {
   const { state, dispatch } = useNote();
@@ -9,25 +10,36 @@ export const NoteMaker = () => {
   const [note, setNote] = useState("");
   const [label, setLabel] = useState("");
 
-  const noteWithDetails = {
-    id: uuid(),
-    title: title,
-    note: note,
-    createdAt: new Date(),
-    bgColor: "#fff",
-    label: label,
+  // const noteWithDetails = {
+  //   id: uuid(),
+  //   title: title,
+  //   note: note,
+  //   createdAt: new Date(),
+  //   bgColor: "#fff",
+  //   label: label,
+  // };
+
+  const postNoteUsingApi = async () => {
+    const response = await axios.post("/api/notes", {
+      title: title,
+      note: note,
+      createdAt: new Date(),
+      bgColor: "#fff",
+      label: label,
+    });
+    console.log(response);
   };
 
-  const saveData = () => {
-    if (title.length > 0 && note.length > 0) {
-      dispatch({ type: "SAVE_DATA", payload: noteWithDetails });
-      setTitle((titleInput.value = ""));
-      setNote((noteInput.value = ""));
-      setLabel((labelInput.value = ""));
-    } else {
-      alert("Title & Notes field are mandetory");
-    }
-  };
+  // const saveData = () => {
+  //   if (title.length > 0 && note.length > 0) {
+  //     dispatch({ type: "SAVE_DATA", payload: noteWithDetails });
+  //     setTitle((titleInput.value = ""));
+  //     setNote((noteInput.value = ""));
+  //     setLabel((labelInput.value = ""));
+  //   } else {
+  //     alert("Title & Notes field are mandetory");
+  //   }
+  // };
 
   return (
     <div className="inputs-container">
@@ -54,7 +66,7 @@ export const NoteMaker = () => {
         placeholder="Label"
         onChange={(e) => setLabel(e.target.value)}
       />
-      <button className="note-maker-btn" onClick={saveData}>
+      <button className="note-maker-btn" onClick={postNoteUsingApi}>
         Save
       </button>
     </div>
