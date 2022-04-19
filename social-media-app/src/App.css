@@ -1,5 +1,9 @@
-.landing-page{
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+.landing-page-post-creator-and-card{
+  display: grid;
+  grid-template-columns: 15% 75%;
+  background-color: azure;
+}
+.lp-post-card-container{
+  width: 75%;
+
 }

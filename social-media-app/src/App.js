@@ -1,28 +1,16 @@
 import "./App.css";
-import { usePostProvider } from "./contextProvider";
-import { Leftbar } from "./utilities/Leftbar";
-import { Navbar } from "./utilities/Navbar";
-import { Postcard } from "./utilities/Postcard";
-import { Postcreater } from "./utilities/Postcreater";
+import { Routes, Route} from "react-router-dom"
+import { LandingPage } from "./utilities/LandingPage";
+import { Signup } from "./utilities/Signup";
 
 function App() {
-  const {state} = usePostProvider()
   return (
-    <div>
-      <div className="landing-page">
-           <div>
-             <Leftbar/>
-           </div>
-           <div>
-             <Navbar/>
-             <Postcreater/>
-          </div>
-      </div>
-     <div>
-     {state.postInfo.map((item)=>{
-       return (<Postcard item={item} key={item.id} />)
-     })}
-     </div>
+    <div >
+      <Routes>
+        <Route path="/" element={<LandingPage/>}/>
+        <Route path="login" element={< LoginPage/> }/>
+        <Route path="/signup" element={<Signup/>}/>
+      </Routes>
     </div>
   )};
 
