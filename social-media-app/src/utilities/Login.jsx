@@ -5,14 +5,6 @@ export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState;
 
-  const saveEmailPassword = async () => {
-    const response = await axios.post("/api/auth/login", {
-      email: email,
-      password: password,
-    });
-    console.log(response);
-  };
-
   return (
     <div>
       <div
