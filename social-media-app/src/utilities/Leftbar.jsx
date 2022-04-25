@@ -5,9 +5,11 @@ export const Leftbar = () => {
   return (
     <div className="leftbar-container">
       <div className="leftbar">
-        <span>
-          <i class="fa-brands fa-twitter logo"></i>
-        </span>
+        <Link to="/">
+          <span>
+            <i class="fa-brands fa-twitter logo"></i>
+          </span>
+        </Link>
         <span>
           <i class="fa-solid fa-house icons"></i>
         </span>

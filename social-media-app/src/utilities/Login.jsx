@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 // import { Navbar } from "./Navbar"
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +29,10 @@ export const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="login-btn">Login</button>
+        <p>
+          New user?
+          <Link to="/signup">Create account</Link>
+        </p>
       </div>
     </div>
   );

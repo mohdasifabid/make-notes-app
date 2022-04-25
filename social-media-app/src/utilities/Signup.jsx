@@ -1,4 +1,5 @@
 import { Navbar } from "./Navbar";
+import { Link } from "react-router-dom";
 
 export const Signup = () => {
   return (
@@ -25,7 +26,11 @@ export const Signup = () => {
           className="login-password"
           placeholder="confirm password"
         />
-        <button className="login-btn">Login</button>
+        <button className="login-btn">Signup</button>
+        <p>
+          Already a user?
+          <Link to="/login">Login here</Link>
+        </p>
       </div>
     </div>
   );
