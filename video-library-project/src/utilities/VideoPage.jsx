@@ -1,28 +1,49 @@
-import axios from "axios";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useVideo } from "../useVideo";
 import { ActiveVideoCard } from "./ActiveVideoCard";
 import { Navbar } from "./Navbar";
 import { VideoCard } from "./VideoCard";
 import "./VideoPage.css";
-import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useVideo } from "../useVideo";
 
 export const VideoPage = () => {
-  const { state, dispatch } = useVideo();
-  const { videoId } = useParams();
+  const [video, setVideo] = useState({});
+  const { state } = useVideo();
+  const { id } = useParams();
+  console.log("checking what useParam is giveng", id);
+  useEffect(() => {
+    const getVideo = async (id) => {
+      const token = localStorage.getItem("encodedToken");
+      const response = await axios.get(`/api/video/${id}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      if (response.status === 200) {
+        setVideo(response.data.video);
+      }
+    };
+    getVideo(id);
+  }, [id]);
 
-  const videoToPlay = state.videos.find((item) => item.video === videoId);
-  const restVideos = state.videos.filter((item) => item.video !== videoId);
+  const excludePlayingVideoFromVideos = state.videos.filter(
+    (vid) => vid.vLink !== video.vLink
+  );
+  console.log(video.video);
+  console.log("exclude hua kya", excludePlayingVideoFromVideos);
+
   return (
     <div>
       <Navbar />
       <div className="video-page-body">
         <div className="video-page-body-content-left-side">
-          <ActiveVideoCard videoToPlay={videoToPlay} />
+          <ActiveVideoCard video={video} />
         </div>
         <div className="video-page-body-content-right-side">
-          {restVideos.map((item) => {
-            return <VideoCard key={item._id} item={item} />;
+          {excludePlayingVideoFromVideos.map((item) => {
+            return <VideoCard item={item} key={item._id} />;
           })}
         </div>
       </div>

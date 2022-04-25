@@ -9,31 +9,38 @@ const videoReducer = (state, action) => {
         ...state,
         videos: action.payload,
       };
-    case "SET_WATCH_NOW":
+    case "GET_CATEGORIES":
       return {
         ...state,
-        watchNow: action.payload,
+        categories: action.payload,
       };
-    case "SET_LIKES":
-      return {
-        ...state,
-        setLikes: state.setLikes + action.payload,
-      };
-    case "SET_DISLIKES":
-      return {
-        ...state,
-        setDislikes: state.setDislikes + action.payload,
-      };
-    case "WATCH_LATER":
-      return {
-        ...state,
-        setWatchLater: [...state.setWatchLater, action.payload],
-      };
-    case "ADD_TO_PLAYLIST":
-      return {
-        ...state,
-        setPlaylist: [...state.setPlaylist, action.payload],
-      };
+    // case "GET_A_VIDEO":
+    //   return {
+    //     ...state,
+    //     aVideo: action.payload,
+    //   };
+
+    // case "SET_LIKES":s
+    //   return {
+    //     ...state,
+    //     setLikes: state.setLikes + action.payload,
+    //   };
+    // case "SET_DISLIKES":
+    //   return {
+    //     ...state,
+    //     setDislikes: state.setDislikes + action.payload,
+    //   };
+    // case "WATCH_LATER":
+    //   return {
+    //     ...state,
+    //     setWatchLater: [...state.setWatchLater, action.payload],
+    //   };
+    // case "ADD_TO_PLAYLIST":
+    //   return {
+    //     ...state,
+    //     setPlaylist: [...state.setPlaylist, action.payload],
+    //   };
+
     default:
       state;
   }
@@ -41,11 +48,13 @@ const videoReducer = (state, action) => {
 
 const initialState = {
   videos: [],
-  watchNow: [],
-  setLikes: 0,
-  setDislikes: 0,
-  setWatchLater: [],
-  setPlaylist: [],
+  categories: [],
+
+  // aVideo: {},
+  // setLikes: 0,
+  // setDislikes: 0,
+  // setWatchLater: [],
+  // setPlaylist: [],
 };
 const VideoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, initialState);

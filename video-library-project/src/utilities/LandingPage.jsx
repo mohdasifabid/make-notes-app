@@ -2,13 +2,25 @@ import "./LandingPage.css";
 import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
 import { LandscapeResponsiveVisual } from "./LandscapeResponsiveVisual";
+import { useVideo } from "../useVideo";
 
 export const LandingPage = () => {
+  const { state } = useVideo();
+
   return (
     <div>
       <Navbar />
+      <div className="category-container">
+        {state.categories.map((cat) => {
+          return (
+            <Link to="/category" className="category-link">
+              <p className="category-box">{cat.categoryName}</p>
+            </Link>
+          );
+        })}
+      </div>
+
       <div className="landing-page-body-container">
-        <div className="landing-page-useraction-elemetns"></div>
         <ol class="duck-list-content-type">
           <Link to="/" className="landing-page-body-links">
             <a class="duck-list-content-type-items" href="">
@@ -40,16 +52,6 @@ export const LandingPage = () => {
               Playlist
             </a>
           </Link>
-          {/* <Link to="/" className="landing-page-body-links">
-            <a class="duck-list-content-type-items" href="">
-              <div class="duck-link-avatar-polygon-type">
-                <a href="">
-                  <i class="fa-regular fa-thumbs-up"></i>
-                </a>
-              </div>
-              Liked
-            </a>
-          </Link> */}
           <Link to="/watch-later" className="landing-page-body-links">
             <a class="duck-list-content-type-items" href="">
               <div class="duck-link-avatar-polygon-type">

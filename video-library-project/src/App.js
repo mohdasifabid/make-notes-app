@@ -13,9 +13,11 @@ import { TrendingVideos } from "./utilities/TrendingVideos";
 import { useAuthProvider } from "./utilities/authProvider";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { Signup } from "./utilities/Signup";
+import { CategorisedVideos } from "./utilities/CategorisedVideos";
+
 
 function App() {  
- const { state, dispatch } = useVideo();
+ const { dispatch } = useVideo();
  const { dispatch: authDispatch} = useAuthProvider()
  useEffect(() => {
   const getVideos = async () => {
@@ -30,18 +32,30 @@ function App() {
     authDispatch({type:"LOGIN_STATUS", payload: false})
 
   }
- 
 }, []);
 
-
+useEffect(() => {
+  const token = localStorage.getItem("encodedToken");
+  const getCategoryData = async () => {
+    const response = await axios.get("/api/categories", {
+      headers: {
+        authorization: token,
+      },
+    });
+    if (response.status === 200) {
+      dispatch({type: "GET_CATEGORIES", payload: response.data.categories})
+    }
+  };
+  getCategoryData();
+}, []);
 
   return (
     <div>
       <Routes>
         <Route path="/" element={<LandingPage/>}/>
-        <Route path="/video-page/:videoId" element={<VideoPage/>}/>
+        <Route path="/videos/:id" element={<VideoPage/>}/>
         <Route path="/trending" element={<TrendingVideos/>}/>
-
+        <Route path="/category" element={<CategorisedVideos/>}/>
         <Route path="/watch-later" element={<PrivateRoute/>} >
           <Route path="/watch-later" element={<WatchLater/>}/>
         </Route>
@@ -56,8 +70,6 @@ function App() {
 
       </Routes>
     </div>
-
   )
 }
-
 export default App;

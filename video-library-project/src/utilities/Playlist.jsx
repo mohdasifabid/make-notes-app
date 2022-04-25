@@ -1,9 +1,7 @@
-import { useVideo } from "../useVideo";
 import { Navbar } from "./Navbar";
 import "./Playlist.css";
 
 export const Playlist = () => {
-  const { state } = useVideo();
   return (
     <div>
       <Navbar />
@@ -14,23 +12,18 @@ export const Playlist = () => {
             Clear Playlist
           </button>
         </div>
-        {state.setPlaylist.map((item) => {
-          return (
-            <div className="playlist-body-content">
-              <div>
-                <p className="playlist-body-content-playlist-name">
-                  <strong>My Playlist Name</strong>
-                </p>
-                <p className="playlist-body-content-playlist-count">
-                  {item.title}
-                </p>
-              </div>
-              <div>
-                <i class="playlist-delete-icon fa-solid fa-trash-can"></i>
-              </div>
-            </div>
-          );
-        })}
+
+        <div className="playlist-body-content">
+          <div>
+            <p className="playlist-body-content-playlist-name">
+              <strong>My Playlist Name</strong>
+            </p>
+            <p className="playlist-body-content-playlist-count">title</p>
+          </div>
+          <div>
+            <i class="playlist-delete-icon fa-solid fa-trash-can"></i>
+          </div>
+        </div>
       </div>
     </div>
   );

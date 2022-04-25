@@ -5,69 +5,75 @@
 import { v4 as uuid } from "uuid";
 export const videos = [
   {
-    _id: uuid,
+    _id: uuid(),
     title: "Chal Chaiya Chaiya",
     description:
       "Jinke sar ho ishq ki chaaon",
     creator: "Sukhwinder Singh | Sapna Awasthi",
-    video: "X7sbQJi0ZE4"
+    vLink: "X7sbQJi0ZE4",
+    category: "music"
   },
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Yun Hi Chala Chal Lyrical Video",
       description:
         "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.",
       creator: "A.R Rahman",
-      video: "eEeX2QMlSlo"
+      vLink: "eEeX2QMlSlo",
+      category: "music"
     },
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Yeh Dil Deewana",
       description:
         "Pardes",
       creator: "Sonu Nigam | Shankar Mahadevan",
-      video: "T4wr-y_bqB8"
+      vLink: "T4wr-y_bqB8",
+      category: "music"
     },
     
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Meri Mehbooba Song ",
       description:
         "Pardes",
       creator: "Sonu Nigam | Alka Yagnik",
-      video: "WkfcHsPKwds"
+      vLink: "WkfcHsPKwds",
+      category: "music"
     },
     
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Pehali Nazar Me ",
       description:
         "Race",
       creator: "Atif, Pritam",
-      video: "BadBAMnPX0I"
+      vLink: "BadBAMnPX0I",
+      category: "music"
     },
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Khudaya Khair ",
       description:
         "Billu",
       creator: "Soham, Akruti, Monali",
-      video:  "jq69R33z4hU"
+      vLink:  "jq69R33z4hU",
+      category: "music"
     },
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Bin Tum Gumsum Hone Lage ",
-      description:
-        "Dus Kahaniya",
+      description: "Dus Kahaniya",
       creator: "ipsum loreum",
-      video: "TRHY4YJm1tc"
+      vLink: "TRHY4YJm1tc",
+      category: "music"
     },
     {
-      _id: uuid,
+      _id: uuid(),
       title: "Bhula Diya",
-      description:
-        "Dus Kahaniya",
+      description: "Dus Kahaniya",
       creator: "KK",
-      video: "n9fQFFpW5S0"
+      vLink: "n9fQFFpW5S0",
+      category: "music"
     },
 ];

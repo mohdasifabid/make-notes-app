@@ -1,4 +1,5 @@
 import "./leftbar.css";
+import { Link } from "react-router-dom";
 
 export const Leftbar = () => {
   return (
@@ -13,9 +14,11 @@ export const Leftbar = () => {
         <span>
           <i class="fa-solid fa-magnifying-glass icons"></i>
         </span>
-        <span>
-          <i class="fa-solid fa-user icons"></i>
-        </span>
+        <Link to="/login">
+          <span>
+            <i class="fa-solid fa-user icons"></i>
+          </span>
+        </Link>
         <span>
           <i class="fa-solid fa-feather-pointed create-post"></i>
         </span>

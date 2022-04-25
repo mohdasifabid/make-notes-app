@@ -3,7 +3,7 @@ import { useState } from "react";
 // import { Navbar } from "./Navbar"
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState;
+  const [password, setPassword] = useState("");
 
   return (
     <div>
@@ -28,9 +28,7 @@ export const LoginPage = () => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="login-btn" onClick={saveEmailPassword}>
-          Login
-        </button>
+        <button className="login-btn">Login</button>
       </div>
     </div>
   );

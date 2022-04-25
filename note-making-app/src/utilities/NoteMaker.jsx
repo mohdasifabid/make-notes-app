@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNote } from "../useNote";
-// import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 import "./NoteMaker.css";
 import axios from "axios";
 
@@ -10,24 +10,24 @@ export const NoteMaker = () => {
   const [note, setNote] = useState("");
   const [label, setLabel] = useState("");
 
-  // const noteWithDetails = {
-  //   id: uuid(),
-  //   title: title,
-  //   note: note,
-  //   createdAt: new Date(),
-  //   bgColor: "#fff",
-  //   label: label,
-  // };
+  const noteWithDetails = {
+    id: uuid(),
+    title: title,
+    note: note,
+    createdAt: new Date(),
+    bgColor: "#fff",
+    tag: label,
+  };
 
-  const postNoteUsingApi = async () => {
-    const response = await axios.post("/api/notes", {
-      title: title,
-      note: note,
-      createdAt: new Date(),
-      bgColor: "#fff",
-      label: label,
-    });
-    console.log(response);
+  const postNoteUsingApi = async (notesId) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios
+      .post(`/api/notes/${notesId}`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .catch((error) => console.log(error));
   };
 
   // const saveData = () => {
@@ -66,7 +66,10 @@ export const NoteMaker = () => {
         placeholder="Label"
         onChange={(e) => setLabel(e.target.value)}
       />
-      <button className="note-maker-btn" onClick={postNoteUsingApi}>
+      <button
+        className="note-maker-btn"
+        onClick={() => postNoteUsingApi(noteWithDetails.id)}
+      >
         Save
       </button>
     </div>
