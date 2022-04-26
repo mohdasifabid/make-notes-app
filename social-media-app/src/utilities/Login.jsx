@@ -1,9 +1,18 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 // import { Navbar } from "./Navbar"
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const saveEmailPassword = async () => {
+    const response = await axios.post("/api/auth/login", {
+      email: email,
+      password: password,
+    });
+    console.log(response);
+  };
 
   return (
     <div>
@@ -28,7 +37,9 @@ export const LoginPage = () => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="login-btn">Login</button>
+        <button className="login-btn" onClick={saveEmailPassword}>
+          Login
+        </button>
         <p>
           New user?
           <Link to="/signup">Create account</Link>

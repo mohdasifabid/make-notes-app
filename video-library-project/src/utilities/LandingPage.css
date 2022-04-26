@@ -3,16 +3,12 @@
     justify-content: center;
 
 }
-.category-link {
-    margin: 2rem 0;
-    text-decoration: none;
-    color: var(--primary-color);
-}
+
 .category-box {
    background-color: var(--secondary-color);
    border-radius: .25rem;
    padding: .5rem 1rem;
-   margin:  2rem 2rem 0 2rem;
+   margin:  2rem 2rem 2rem 2rem;
    width: fit-content;
    font-size: large;
    font-weight: bold;

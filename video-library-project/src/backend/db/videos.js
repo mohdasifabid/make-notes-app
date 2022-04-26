@@ -62,11 +62,11 @@ export const videos = [
     },
     {
       _id: uuid(),
-      title: "Bin Tum Gumsum Hone Lage ",
-      description: "Dus Kahaniya",
+      title: "Talking Tech with Sunder Pichai ",
+      description: "technology",
       creator: "ipsum loreum",
-      vLink: "TRHY4YJm1tc",
-      category: "music"
+      vLink: "n2RNcPRtAiY",
+      category: "tech"
     },
     {
       _id: uuid(),

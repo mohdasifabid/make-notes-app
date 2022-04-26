@@ -34,20 +34,7 @@ function App() {
   }
 }, []);
 
-useEffect(() => {
-  const token = localStorage.getItem("encodedToken");
-  const getCategoryData = async () => {
-    const response = await axios.get("/api/categories", {
-      headers: {
-        authorization: token,
-      },
-    });
-    if (response.status === 200) {
-      dispatch({type: "GET_CATEGORIES", payload: response.data.categories})
-    }
-  };
-  getCategoryData();
-}, []);
+
 
   return (
     <div>

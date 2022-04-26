@@ -9,7 +9,7 @@ export const WatchLater = () => {
         <h1>Watch Later</h1>
         <div className="watch-later-videos-container">
           <div className="watch-later-videos-card-container">
-            <VideoCard type="later" />
+            {/* <VideoCard type="later" /> */}
           </div>
         </div>
       </div>

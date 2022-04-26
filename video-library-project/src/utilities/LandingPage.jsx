@@ -2,23 +2,11 @@ import "./LandingPage.css";
 import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
 import { LandscapeResponsiveVisual } from "./LandscapeResponsiveVisual";
-import { useVideo } from "../useVideo";
 
 export const LandingPage = () => {
-  const { state } = useVideo();
-
   return (
     <div>
       <Navbar />
-      <div className="category-container">
-        {state.categories.map((cat) => {
-          return (
-            <Link to="/category" className="category-link">
-              <p className="category-box">{cat.categoryName}</p>
-            </Link>
-          );
-        })}
-      </div>
 
       <div className="landing-page-body-container">
         <ol class="duck-list-content-type">
