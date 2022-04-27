@@ -7,7 +7,6 @@ export const LandingPage = () => {
   return (
     <div>
       <Navbar />
-
       <div className="landing-page-body-container">
         <ol class="duck-list-content-type">
           <Link to="/" className="landing-page-body-links">
@@ -38,6 +37,16 @@ export const LandingPage = () => {
                 </a>
               </div>
               Playlist
+            </a>
+          </Link>
+          <Link to="/liked" className="landing-page-body-links">
+            <a class="duck-list-content-type-items" href="">
+              <div class="duck-link-avatar-polygon-type">
+                <a href="">
+                  <i class="fa-solid fa-thumbs-up"></i>
+                </a>
+              </div>
+              Liked
             </a>
           </Link>
           <Link to="/watch-later" className="landing-page-body-links">

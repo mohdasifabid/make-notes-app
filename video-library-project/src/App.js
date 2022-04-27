@@ -13,7 +13,7 @@ import { TrendingVideos } from "./utilities/TrendingVideos";
 import { useAuthProvider } from "./utilities/authProvider";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { Signup } from "./utilities/Signup";
-import { CategorisedVideos } from "./utilities/CategorisedVideos";
+import { LikedVideos } from "./LikedVideos";
 
 
 function App() {  
@@ -42,7 +42,6 @@ function App() {
         <Route path="/" element={<LandingPage/>}/>
         <Route path="/videos/:id" element={<VideoPage/>}/>
         <Route path="/trending" element={<TrendingVideos/>}/>
-        <Route path="/category" element={<CategorisedVideos/>}/>
         <Route path="/watch-later" element={<PrivateRoute/>} >
           <Route path="/watch-later" element={<WatchLater/>}/>
         </Route>
@@ -51,6 +50,9 @@ function App() {
         </Route>
         <Route path="/playlist" element={<PrivateRoute/>}>
           <Route path="/playlist" element={<Playlist/>}/>
+        </Route>
+        <Route path="/liked" element={<PrivateRoute/>}>
+          <Route path="/liked" element={<LikedVideos/>}/>
         </Route>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>

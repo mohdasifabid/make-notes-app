@@ -14,6 +14,26 @@ const videoReducer = (state, action) => {
         ...state,
         categories: action.payload,
       };
+    case "GET_LIKED_VIDEOS":
+      return {
+        ...state,
+        likedVideos: [...state.likedVideos, action.payload],
+      };
+    case "GET_WATCH_LATER_VIDEOS":
+      return {
+        ...state,
+        watchlaterVideos: [...state.watchlaterVideos, action.payload],
+      };
+    case "GET_PLAYLIST":
+      return {
+        ...state,
+        playlist: [...state.playlist, action.payload],
+      };
+    case "GET_HISTORY":
+      return {
+        ...state,
+        history: [...state.history, action.payload],
+      };
     // case "GET_A_VIDEO":
     //   return {
     //     ...state,
@@ -49,6 +69,10 @@ const videoReducer = (state, action) => {
 const initialState = {
   videos: [],
   categories: [],
+  likedVideos: [],
+  watchlaterVideos: [],
+  playlist: [],
+  history: [],
 
   // aVideo: {},
   // setLikes: 0,

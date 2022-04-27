@@ -1,7 +1,24 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 import "./VideoCard.css";
 
-export const VideoCard = ({ item, type: later }) => {
+export const VideoCard = ({ item, type: later, type: lv, type: history }) => {
+  const postHistory = async (playedVideo) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      "/api/user/history",
+      {
+        video: playedVideo,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    console.log("history", response);
+  };
+
   return (
     <div className="video-card-container">
       <iframe
@@ -17,7 +34,10 @@ export const VideoCard = ({ item, type: later }) => {
       </p>
       <p className="video-card-sub-title">{item.creator}</p>
       <Link to={`/videos/${item._id}`}>
-        <button class="video-card-btn duck-primary-btn-s duck-primary-btn">
+        <button
+          class="video-card-btn duck-primary-btn-s duck-primary-btn"
+          onClick={() => postHistory(item)}
+        >
           Watch Now
         </button>
       </Link>

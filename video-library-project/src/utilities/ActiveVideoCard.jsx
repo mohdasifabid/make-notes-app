@@ -1,9 +1,74 @@
+import axios from "axios";
+import { useState } from "react";
 import { useVideo } from "../useVideo";
 import "./ActiveVideoCard.css";
 
 export const ActiveVideoCard = ({ video }) => {
   const { state, dispatch } = useVideo();
-  const { setLikes, setDislikes, watchNow } = state;
+  const [likes, setLikes] = useState("");
+  const [dislikes, setDislikes] = useState(0);
+
+  const getLikedVideo = async (likedVideo) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      "/api/user/likes",
+      {
+        video: likedVideo,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    if (response.status === 201) {
+      setLikes(response.data.likes.length);
+    }
+    console.log(response);
+  };
+  const deleteDislikedVideo = async (dislikedVideo) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.delete(
+      `/api/user/likes/${dislikedVideo._id}`,
+      {
+        headers: {
+          authorization: token,
+        },
+        data: {
+          video: dislikedVideo,
+        },
+      }
+    );
+  };
+  const getWatchlaterVideo = async (watchlaterVideo) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      "/api/user/watchlater",
+      {
+        video: watchlaterVideo,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+  };
+  const getPlaylistVideo = async (playlistVideo) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      "/api/user/playlists",
+      {
+        video: playlistVideo,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    console.log(response);
+  };
   return (
     <div className="active-video-card-container">
       <p className="active-video-card-title">
@@ -23,32 +88,33 @@ export const ActiveVideoCard = ({ video }) => {
           <span className="active-video-card-icons-and-tags">
             <i
               class="fa-solid fa-thumbs-up"
-              // onClick={() => dispatch({ type: "SET_LIKES", payload: 1 })}
+              onClick={() => {
+                getLikedVideo(video);
+              }}
             ></i>
-            {/* {setLikes} */}
+            {likes}
           </span>
           <span className="active-video-card-icons-and-tags">
             <i
               class="fa-solid fa-thumbs-down"
-              // onClick={() => dispatch({ type: "SET_DISLIKES", payload: 1 })}
+              onClick={() => {
+                deleteDislikedVideo(video);
+                setDislikes(dislikes + 1);
+              }}
             ></i>{" "}
-            {/* {setDislikes} */}
+            {dislikes}
           </span>
           <span className="active-video-card-icons-and-tags">
             <i
               class="fa-solid fa-heart"
-              // onClick={() =>
-              // dispatch({ type: "WATCH_LATER", payload: state.watchNow })
-              // }
+              onClick={() => getWatchlaterVideo(video)}
             ></i>
             Watch Later
           </span>
           <span className="active-video-card-icons-and-tags">
             <i
               class="fa-solid fa-list"
-              // onClick={() =>
-              // dispatch({ type: "ADD_TO_PLAYLIST", payload: state.watchNow })
-              // }
+              onClick={() => getPlaylistVideo(video)}
             ></i>{" "}
             Add to Playlist
           </span>
