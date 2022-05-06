@@ -19,7 +19,7 @@ import { Aplaylist } from "./utilities/aPlaylist";
 
 function App() {  
  const { dispatch } = useVideo();
- const { dispatch: authDispatch} = useAuthProvider()
+ const { dispatch: authDispatch, state: authState} = useAuthProvider()
  useEffect(() => {
   const getVideos = async () => {
     const response = await axios.get("api/videos");
@@ -43,7 +43,7 @@ function App() {
         <Route path="/" element={<LandingPage/>}/>
         <Route path="/videos/:id" element={<VideoPage/>}/>
         <Route path="/trending" element={<TrendingVideos/>}/>
-        <Route path="/aplaylist" element={<Aplaylist/>}/>
+        <Route path="/playlist/:id" element={<Aplaylist/>}/>
         <Route path="/watch-later" element={<PrivateRoute/>} >
           <Route path="/watch-later" element={<WatchLater/>}/>
         </Route>
@@ -56,7 +56,10 @@ function App() {
         <Route path="/liked" element={<PrivateRoute/>}>
           <Route path="/liked" element={<LikedVideos/>}/>
         </Route>
-        <Route path="/login" element={<Login />}/>
+        {
+          authState.isLogin ? <Route path="/login" element={<LandingPage/>}/> : <Route path="/login" element={<Login />}/>
+        }
+        
         <Route path="/signup" element={<Signup />}/>
 
       </Routes>
