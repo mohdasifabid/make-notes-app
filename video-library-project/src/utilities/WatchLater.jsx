@@ -6,7 +6,6 @@ import { VideoCard } from "./VideoCard";
 import "./WatchLater.css";
 export const WatchLater = () => {
   const { state, dispatch } = useVideo();
-  console.log(state.watchlaterVideos);
   useEffect(() => {
     const getWatchLaterVideos = async () => {
       const token = localStorage.getItem("encodedToken");
@@ -32,7 +31,7 @@ export const WatchLater = () => {
         <div className="watch-later-videos-container">
           <div className="watch-later-videos-card-container">
             {state.watchlaterVideos.map((watchLaterVid) => {
-              return <VideoCard type="later" watchLaterVid={watchLaterVid} />;
+              return <VideoCard type="later" item={watchLaterVid} />;
             })}
           </div>
         </div>

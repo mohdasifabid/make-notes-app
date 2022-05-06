@@ -5,7 +5,7 @@ import { Navbar } from "./Navbar";
 import "./Playlist.css";
 // import { VideoCard } from "./VideoCard";
 
-export const Playlist = () => {
+export const Aplaylist = () => {
   const { state, dispatch } = useVideo();
 
   useEffect(() => {

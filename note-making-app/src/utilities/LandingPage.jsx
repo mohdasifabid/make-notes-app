@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useNote } from "../useNote";
 import { Footer } from "./Footer";
@@ -10,13 +11,18 @@ export const LandingPage = () => {
   const { state, dispatch } = useNote();
 
   useEffect(() => {
-    const getDataFunction = () => {
-      const gotData = JSON.parse(localStorage.getItem("dataBase"))
-        ? JSON.parse(localStorage.getItem("dataBase"))
-        : [];
-      dispatch({ type: "GET_DATA", payload: gotData });
+    const getNotes = async () => {
+      const token = localStorage.getItem("encodedToken");
+      const response = await axios.get("/api/notes", {
+        headers: {
+          authorization: token,
+        },
+      });
+      if (response.status === 200) {
+        dispatch({ type: "GET_NOTES", payload: response.data.notes });
+      }
     };
-    getDataFunction();
+    getNotes();
   }, []);
 
   const searchNoteFunction = (data, meter) => {
@@ -24,10 +30,12 @@ export const LandingPage = () => {
       return data.filter((item) =>
         item.title.toLowerCase().includes(meter.toLowerCase())
       );
+    } else {
+      return data;
     }
-    return data;
   };
-  const searchedNote = searchNoteFunction(state.dataBase, state.searchQuery);
+  const filteredNotes = searchNoteFunction(state.notes, state.searchQuery);
+
   return (
     <div>
       <Navbar />
@@ -35,16 +43,15 @@ export const LandingPage = () => {
         <div className="landing-page-note-maker-container">
           <NoteMaker />
         </div>
-        {state.ourPinnedNotes.length > 0 && <h2>Pinned Notes</h2>}
+        {state.pinnedNotes.length > 0 && <h2>Pinned Notes</h2>}
         <div className="landing-page-pinned-notes-container">
-          {state.ourPinnedNotes.map((item) => {
-            return <NoteCard type="pin" key={item.id} item={item} />;
+          {state.pinnedNotes.map((item) => {
+            return <NoteCard type="pin" key={item._id} item={item} />;
           })}
         </div>
-        {state.dataBase.length > 0 && <h2> Notes</h2>}
         <div className="landing-page-note-cards-container">
-          {searchedNote.map((item) => {
-            return <NoteCard item={item} id={item.id} />;
+          {filteredNotes.map((item) => {
+            return <NoteCard item={item} key={item._id} type="newNote" />;
           })}
         </div>
       </div>

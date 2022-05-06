@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./VideoCard.css";
 
-export const VideoCard = ({ item, type: later, type: lv, type: history }) => {
+export const VideoCard = ({ item, type }) => {
   const postHistory = async (playedVideo) => {
     const token = localStorage.getItem("encodedToken");
     const response = await axios.post(
@@ -16,7 +16,6 @@ export const VideoCard = ({ item, type: later, type: lv, type: history }) => {
         },
       }
     );
-    console.log("history", response);
   };
 
   return (

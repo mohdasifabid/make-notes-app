@@ -12,7 +12,6 @@ export const VideoPage = () => {
   const [video, setVideo] = useState({});
   const { state } = useVideo();
   const { id } = useParams();
-  console.log("checking what useParam is giveng", id);
   useEffect(() => {
     const getVideo = async (id) => {
       const token = localStorage.getItem("encodedToken");
@@ -31,15 +30,13 @@ export const VideoPage = () => {
   const excludePlayingVideoFromVideos = state.videos.filter(
     (vid) => vid.vLink !== video.vLink
   );
-  console.log(video.video);
-  console.log("exclude hua kya", excludePlayingVideoFromVideos);
 
   return (
     <div>
       <Navbar />
       <div className="video-page-body">
         <div className="video-page-body-content-left-side">
-          <ActiveVideoCard video={video} />
+          <ActiveVideoCard item={video} />
         </div>
         <div className="video-page-body-content-right-side">
           {excludePlayingVideoFromVideos.map((item) => {

@@ -1,5 +1,5 @@
+import axios from "axios";
 import { useState } from "react";
-import { useEffect } from "react";
 import { useNote } from "../useNote";
 import "./NoteCard.css";
 export const NoteCard = ({ item, type }) => {
@@ -7,9 +7,81 @@ export const NoteCard = ({ item, type }) => {
   const [titleUpdate, setTitleUpdate] = useState(item.title);
   const [noteUpdate, setNoteUpdate] = useState(item.note);
   const [bgColor, setBgColor] = useState(item.bgColor);
-  const [labelUpdate, setLabelUpdate] = useState(item.label);
+  const [labelUpdate, setLabelUpdate] = useState(item.tag);
 
-  useEffect(() => {}, []);
+  const deleteNote = async (item) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.delete(`/api/notes/${item._id}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    if (response.status === 200) {
+      const getNotes = async () => {
+        const token = localStorage.getItem("encodedToken");
+        const response = await axios.get("/api/notes", {
+          headers: {
+            authorization: token,
+          },
+        });
+        if (response.status === 200) {
+          dispatch({ type: "GET_NOTES", payload: response.data.notes });
+        }
+      };
+      getNotes();
+    }
+  };
+  const archiveNote = async (item) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      `/api/notes/archives/${item._id}`,
+      {
+        item,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    if (response.status === 201) {
+      dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
+      const getNotes = async () => {
+        const token = localStorage.getItem("encodedToken");
+        const response = await axios.get("/api/notes", {
+          headers: {
+            authorization: token,
+          },
+        });
+        if (response.status === 200) {
+          dispatch({ type: "GET_NOTES", payload: response.data.notes });
+        }
+      };
+      getNotes();
+    }
+  };
+  const deleteFromArchive = async (item) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.delete(`/api/archives/delete/${item._id}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    if (response.status === 200) {
+      const getData = async () => {
+        const token = localStorage.getItem("encodedToken");
+        const response = await axios.get("/api/archives", {
+          headers: {
+            authorization: token,
+          },
+        });
+        if (response.status === 200) {
+          dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
+        }
+      };
+      getData();
+    }
+  };
 
   return (
     <div className="note-card-container" style={{ backgroundColor: bgColor }}>
@@ -20,6 +92,7 @@ export const NoteCard = ({ item, type }) => {
           value={titleUpdate}
           onChange={(e) => setTitleUpdate(e.target.value)}
           onBlur={() => {
+            updateNote(item);
             dispatch({
               type: "UPDATE_NOTE",
               payload: { ...item, title: titleUpdate, note: noteUpdate },
@@ -51,19 +124,7 @@ export const NoteCard = ({ item, type }) => {
           }
         />
       </div>
-      {type === "pin" ? (
-        <i
-          class="note-card-pin-icon fa-solid fa-thumbtack"
-          onClick={() =>
-            dispatch({ type: "SET_UNPINNED_NOTES", payload: item })
-          }
-        ></i>
-      ) : (
-        <i
-          class="note-card-pin-icon fa-solid fa-thumbtack"
-          onClick={() => dispatch({ type: "SET_PINNED_NOTES", payload: item })}
-        ></i>
-      )}
+
       <div className="note-card-bottom">
         <p className="bottom-left-side">
           {new Date(item.createdAt).getHours()}:
@@ -82,45 +143,23 @@ export const NoteCard = ({ item, type }) => {
               });
             }}
           />
+
           <i class="fa-solid fa-tag"></i>
 
-          {type === "archived" ? (
-            false
-          ) : (
-            <i
-              class="note-card-icons fa-solid fa-box-archive"
-              onClick={() =>
-                dispatch({ type: "SET_ARCHIVED_NOTES", payload: item })
-              }
-            ></i>
-          )}
-          {type === "archived" && (
-            <i
-              class="note-card-icons fa-solid fa-trash-can"
-              onClick={() =>
-                dispatch({ type: "DELETE_NOTE_FROM_ARCHIVE", payload: item })
-              }
-            ></i>
-          )}
-          {type === "pin" && (
-            <i
-              class="note-card-icons fa-solid fa-trash-can"
-              onClick={() =>
-                dispatch({ type: "DELETE_NOTE_FROM_PINNED", payload: item })
-              }
-            ></i>
-          )}
-          {type === "normal" && (
-            <i
-              class="note-card-icons fa-solid fa-trash-can"
-              onClick={() =>
-                dispatch({
-                  type: "DELETE_NOTE",
-                  payload: item,
-                })
-              }
-            ></i>
-          )}
+          <i
+            class="note-card-icons fa-solid fa-box-archive"
+            onClick={() => {
+              archiveNote(item);
+            }}
+          ></i>
+
+          <i
+            class="note-card-icons fa-solid fa-trash-can"
+            onClick={() => {
+              deleteNote(item);
+              deleteFromArchive(item);
+            }}
+          ></i>
         </div>
       </div>
     </div>

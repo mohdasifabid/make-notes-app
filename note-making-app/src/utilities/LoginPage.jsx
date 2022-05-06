@@ -6,7 +6,7 @@ import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 
 export const LoginPage = () => {
-  const { dispatch: authDispatch } = useAuthProvider();
+  const { dispatch: authDispatch, state: authState } = useAuthProvider();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

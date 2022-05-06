@@ -22,10 +22,7 @@ export const Login = () => {
       localStorage.setItem("encodedToken", response.data.encodedToken);
       navigate("/trending");
     }
-
-    console.log(response);
   };
-  console.log(state.isLogin);
   return (
     <div>
       <Navbar />

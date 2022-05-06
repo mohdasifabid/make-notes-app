@@ -25,7 +25,7 @@ export const ListBar = () => {
               Archive
             </span>
           </Link>
-          <Link to="/login" className="listbar-links">
+          <Link to="/profile" className="listbar-links">
             <span className="appear-on-hover-content">
               <i class="list-bar-icons fa-solid fa-user"></i>
               Profile

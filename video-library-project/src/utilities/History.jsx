@@ -4,9 +4,9 @@ import "./History.css";
 import { useEffect } from "react";
 import axios from "axios";
 import { useVideo } from "../useVideo";
+
 export const History = () => {
   const { state, dispatch } = useVideo();
-  console.log(state.history);
   useEffect(() => {
     const getPlaylistVideos = async () => {
       const token = localStorage.getItem("encodedToken");
@@ -34,7 +34,7 @@ export const History = () => {
         <div className="history-videos-container">
           <div className="history-videos-card-container">
             {state.history.map((hvideo) => {
-              return <VideoCard hvideo={hvideo} type="history" />;
+              return <VideoCard item={hvideo} type="history" />;
             })}
           </div>
         </div>
