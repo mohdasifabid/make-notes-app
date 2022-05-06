@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useVideo } from "../useVideo";
 import { Navbar } from "./Navbar";
@@ -33,18 +34,17 @@ export const Playlist = () => {
             Clear Playlist
           </button>
         </div>
-        <div className="playlist-body-content">
-          {state.playlists.map((item) => {
-            return (
-              <p className="playlist-body-content-playlist-name">
-                <strong>{item.title}</strong>
-              </p>
-            );
-          })}
-          <div>
-            <i class="playlist-delete-icon fa-solid fa-trash-can"></i>
-          </div>
-        </div>
+        {state.playlists.map((item) => {
+          return (
+            <div className="playlist-body-content">
+              <Link to={`/playlist/${item._id}`}>
+                <p className="playlist-body-content-playlist-name">
+                  <strong>{item.title}</strong>
+                </p>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

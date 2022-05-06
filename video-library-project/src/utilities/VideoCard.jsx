@@ -1,14 +1,16 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useVideo } from "../useVideo";
 import "./VideoCard.css";
 
 export const VideoCard = ({ item, type }) => {
-  const postHistory = async (playedVideo) => {
+  const { state, dispatch } = useVideo();
+  const postHistory = async (video) => {
     const token = localStorage.getItem("encodedToken");
     const response = await axios.post(
       "/api/user/history",
       {
-        video: playedVideo,
+        video,
       },
       {
         headers: {
@@ -16,6 +18,9 @@ export const VideoCard = ({ item, type }) => {
         },
       }
     );
+    if (response.status === 201) {
+      dispatch({ type: "GET_HISTORY", payload: response.data.history });
+    }
   };
 
   return (
@@ -40,6 +45,7 @@ export const VideoCard = ({ item, type }) => {
           Watch Now
         </button>
       </Link>
+
       <i class="video-card-like-icon fa-solid fa-heart"></i>
     </div>
   );

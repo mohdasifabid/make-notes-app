@@ -8,7 +8,7 @@ import { useVideo } from "../useVideo";
 export const History = () => {
   const { state, dispatch } = useVideo();
   useEffect(() => {
-    const getPlaylistVideos = async () => {
+    const getHistory = async () => {
       const token = localStorage.getItem("encodedToken");
       const response = await axios.get("/api/user/history", {
         headers: {
@@ -19,15 +19,42 @@ export const History = () => {
         dispatch({ type: "GET_HISTORY", payload: response.data.history });
       }
     };
-    getPlaylistVideos();
+    getHistory();
   }, []);
+
+  const deleteHistory = async () => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.delete("/api/user/history/all", {
+      headers: {
+        authorization: token,
+      },
+    });
+    if (response.status === 200) {
+      const getHistory = async () => {
+        const token = localStorage.getItem("encodedToken");
+        const response = await axios.get("/api/user/history", {
+          headers: {
+            authorization: token,
+          },
+        });
+        if (response.status === 200) {
+          dispatch({ type: "GET_HISTORY", payload: response.data.history });
+        }
+      };
+      getHistory();
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="history-videos-body">
         <div className="history-videos-heading-clear-btn-container">
           <h1>History</h1>
-          <button class=" history-videos-clear-btn duck-primary-btn-s duck-primary-btn">
+          <button
+            class=" history-videos-clear-btn duck-primary-btn-s duck-primary-btn"
+            onClick={deleteHistory}
+          >
             Clear History
           </button>
         </div>

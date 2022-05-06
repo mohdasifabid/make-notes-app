@@ -17,12 +17,12 @@ const videoReducer = (state, action) => {
     case "GET_LIKED_VIDEOS":
       return {
         ...state,
-        likedVideos: [...state.likedVideos, action.payload],
+        likedVideos: action.payload,
       };
     case "GET_WATCH_LATER_VIDEOS":
       return {
         ...state,
-        watchlaterVideos: [...state.watchlaterVideos, action.payload],
+        watchlaterVideos: action.payload,
       };
     case "GET_PLAYLISTS":
       return {
@@ -32,7 +32,7 @@ const videoReducer = (state, action) => {
     case "GET_HISTORY":
       return {
         ...state,
-        history: [...state.history, action.payload],
+        history: action.payload,
       };
 
     default:

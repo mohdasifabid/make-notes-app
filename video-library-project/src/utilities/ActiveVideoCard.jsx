@@ -10,9 +10,8 @@ export const ActiveVideoCard = ({ item }) => {
   const [dislikes, setDislikes] = useState(0);
   const [creatingPlaylist, setCreatingPlaylist] = useState(false);
   const [playlistName, setPlaylistName] = useState("");
-  console.log(state.playlists);
 
-  const getLikedVideo = async (likedVideo) => {
+  const postLikedVideo = async (likedVideo) => {
     const token = localStorage.getItem("encodedToken");
     const response = await axios.post(
       "/api/user/likes",
@@ -43,7 +42,7 @@ export const ActiveVideoCard = ({ item }) => {
       }
     );
   };
-  const getWatchlaterVideo = async (watchlaterVideo) => {
+  const postWatchlaterVideo = async (watchlaterVideo) => {
     const token = localStorage.getItem("encodedToken");
     const response = await axios.post(
       "/api/user/watchlater",
@@ -103,6 +102,32 @@ export const ActiveVideoCard = ({ item }) => {
       getPlaylistVideos();
     }
   };
+  const postPlaylistWithId = async (itemId) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      `/api/user/playlists/${itemId}`,
+      {
+        video: item,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    const getPlaylistVideos = async () => {
+      const token = localStorage.getItem("encodedToken");
+      const response = await axios.get("/api/user/playlists", {
+        headers: {
+          authorization: token,
+        },
+      });
+      if (response.status === 200) {
+        dispatch({ type: "GET_PLAYLISTS", payload: response.data.playlists });
+      }
+    };
+    getPlaylistVideos();
+  };
   return (
     <div className="active-video-card-container">
       <p className="active-video-card-title">
@@ -128,7 +153,7 @@ export const ActiveVideoCard = ({ item }) => {
             <i
               class="fa-solid fa-thumbs-up"
               onClick={() => {
-                getLikedVideo(item);
+                postLikedVideo(item);
               }}
             ></i>
             {likes}
@@ -146,7 +171,7 @@ export const ActiveVideoCard = ({ item }) => {
           <span className="active-video-card-icons-and-tags">
             <i
               class="fa-solid fa-heart"
-              onClick={() => getWatchlaterVideo(item)}
+              onClick={() => postWatchlaterVideo(item)}
             ></i>
             Watch Later
           </span>
@@ -187,7 +212,7 @@ export const ActiveVideoCard = ({ item }) => {
             {state.playlists.length > 0
               ? state.playlists.map((playlist) => {
                   return (
-                    <li onClick={() => postPlyalistById(playlist._id, item)}>
+                    <li onClick={() => postPlaylistWithId(playlist._id)}>
                       {playlist.title}
                     </li>
                   );
@@ -195,7 +220,7 @@ export const ActiveVideoCard = ({ item }) => {
               : null}
 
             <label for="email" class="duck-modal-email-label">
-              Name your playlist
+              Create playlist
               <input
                 type="text"
                 class="duck-modal-email-input"

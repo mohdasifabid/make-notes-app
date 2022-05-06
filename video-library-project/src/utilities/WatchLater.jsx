@@ -6,6 +6,7 @@ import { VideoCard } from "./VideoCard";
 import "./WatchLater.css";
 export const WatchLater = () => {
   const { state, dispatch } = useVideo();
+  console.log(state.watchlaterVideos);
   useEffect(() => {
     const getWatchLaterVideos = async () => {
       const token = localStorage.getItem("encodedToken");

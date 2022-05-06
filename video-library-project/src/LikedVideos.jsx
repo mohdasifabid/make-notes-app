@@ -27,11 +27,13 @@ export const LikedVideos = () => {
       <div className="watch-later-videos-body">
         <h1>Liked videos</h1>
         <div className="watch-later-videos-container">
-          <div className="watch-later-videos-card-container">
-            {state.likedVideos.map((likedV) => {
-              return <VideoCard type="lv" likedV={likedV} />;
-            })}
-          </div>
+          {state.likedVideos.length > 0 && (
+            <div className="watch-later-videos-card-container">
+              {state.likedVideos.map((likedV) => {
+                return <VideoCard type="lv" item={likedV} />;
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

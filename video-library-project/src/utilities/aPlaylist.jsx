@@ -1,26 +1,29 @@
 import axios from "axios";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useVideo } from "../useVideo";
 import { Navbar } from "./Navbar";
 import "./Playlist.css";
-// import { VideoCard } from "./VideoCard";
+import { VideoCard } from "./VideoCard";
 
-export const Aplaylist = () => {
+export const Aplaylist = ({ item }) => {
   const { state, dispatch } = useVideo();
-
+  const [playlistData, setPlaylistData] = useState([]);
+  const { id } = useParams();
   useEffect(() => {
-    const getPlaylistVideos = async () => {
+    const getPlaylistVideosById = async (id) => {
       const token = localStorage.getItem("encodedToken");
-      const response = await axios.get("/api/user/playlists", {
+      const response = await axios.get(`/api/user/playlists/${id}`, {
         headers: {
           authorization: token,
         },
       });
       if (response.status === 200) {
-        dispatch({ type: "GET_PLAYLISTS", payload: response.data.playlists });
+        setPlaylistData(response.data.playlist.videos);
       }
     };
-    getPlaylistVideos();
+    getPlaylistVideosById(id);
   }, []);
 
   return (
@@ -28,22 +31,20 @@ export const Aplaylist = () => {
       <Navbar />
       <div className="playlist-body">
         <div className="playlist-heading-clear-btn-container">
-          <h1>Playlist</h1>
+          <h1>Ek thi playlist</h1>
           <button class=" playlist-clear-btn duck-primary-btn-s duck-primary-btn">
             Clear Playlist
           </button>
         </div>
         <div className="playlist-body-content">
-          {state.playlists.map((item) => {
+          {playlistData.map((item) => {
             return (
               <p className="playlist-body-content-playlist-name">
                 <strong>{item.title}</strong>
+                <VideoCard item={item} type="aplaylist" />
               </p>
             );
           })}
-          <div>
-            <i class="playlist-delete-icon fa-solid fa-trash-can"></i>
-          </div>
         </div>
       </div>
     </div>
