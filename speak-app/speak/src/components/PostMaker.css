@@ -1,0 +1,36 @@
+.avatar-textarea-container{
+    display: flex;
+    min-height: 10rem;
+    /* width: 100%; */
+    padding: 1rem;
+    border: 1px solid var(--secondary-color);
+}
+.textarea{
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    font-size: large;
+    background-color: azure;
+}
+
+.bottom-container{
+    display: flex;
+    justify-content: flex-end;
+    /* width: 100%; */
+    padding: .5rem 1rem;
+    border: 1px solid var(--secondary-color);
+
+}
+.duck-primary-btn-s{
+    border-radius: 2rem;
+    width: 5rem;
+    background-color: #1D9BF0;
+    color: white;
+    border: none;
+
+}
+.duck-primary-btn-s:hover{
+    background-color: #1D9BF0;
+    color: white;
+}

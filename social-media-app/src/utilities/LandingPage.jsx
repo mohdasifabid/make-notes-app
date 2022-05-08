@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { usePostProvider } from "../contextProvider";
 import { Leftbar } from "./Leftbar";
 import { Navbar } from "./Navbar";
