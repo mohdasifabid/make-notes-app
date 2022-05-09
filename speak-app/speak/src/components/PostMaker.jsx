@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import { usePostProvider } from "../postProvider";
 import "./PostMaker.css";
 export const PostMaker = () => {
+  const { state, dispatch } = usePostProvider();
   const [newPost, setNewPost] = useState("");
   const postDetails = { id: uuid(), createdAt: new Date(), post: newPost };
   return (
@@ -18,21 +20,21 @@ export const PostMaker = () => {
           value={newPost}
           className="textarea"
           placeholder="Whats happening?"
-          //   onChange={(e) => {
-          //     setNewPost(e.target.value);
-          //   }}
+          onChange={(e) => {
+            setNewPost(e.target.value);
+          }}
         ></textarea>
       </div>
       <div className="bottom-container">
         <button
           class="duck-primary-btn-s duck-primary-btn"
-          //   onClick={() => {
-          //     dispatch({
-          //       type: "POSTS",
-          //       payload: postDetails,
-          //     });
-          //     setNewPost("");
-          //   }}
+          onClick={() => {
+            dispatch({
+              type: "POSTS",
+              payload: postDetails,
+            });
+            setNewPost("");
+          }}
         >
           speak
         </button>

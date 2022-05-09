@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
 // import { Navbar } from "./Navbar"
-export const LoginPage = () => {
+export const Login = () => {
   const { state: authState } = useAuthProvider();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

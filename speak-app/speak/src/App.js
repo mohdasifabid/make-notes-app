@@ -1,14 +1,16 @@
 import "./App.css";
-import { Navbar } from "./components/Navbar";
-import { PostMaker } from "./components/PostMaker";
-import logo from "./logo.png";
+import {Routes, Route} from "react-router-dom"
+import { LandingPage } from "./components/LandingPage";
+import { Login } from "./components/Login";
 
 function App() {
   return ( 
     <div>
+    <LandingPage/>
+    <Routes>
+      <Route path="/login" element={<Login/>}/>
+    </Routes>
 
-    <Navbar/>
-    < PostMaker/>
     </div>
 
   )
