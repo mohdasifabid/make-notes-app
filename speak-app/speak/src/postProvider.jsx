@@ -4,26 +4,27 @@ export const usePostProvider = () => useContext(PostContext);
 
 const reducerFunction = (state, action) => {
   switch (action.type) {
-    case "POSTS":
+    case "GET_POSTS":
       return {
         ...state,
-        postInfo: [...state.postInfo, action.payload],
+        posts: action.payload,
       };
-    case "LIKES":
+    case "GET_POST":
       return {
         ...state,
-        likes: state.likes + action.payload,
+        post: action.payload,
       };
     default:
       return state;
   }
 };
 const initialState = {
-  postInfo: [],
-  likes: 0,
+  posts: [],
+  post: {},
 };
 export const PostProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
+
   return (
     <PostContext.Provider value={{ state, dispatch }}>
       {children}

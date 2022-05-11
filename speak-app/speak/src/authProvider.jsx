@@ -10,7 +10,11 @@ const authReducer = (state, action) => {
         ...state,
         isLoggedIn: action.payload,
       };
-
+    case "SIGN_UP_STATUS":
+      return {
+        ...state,
+        isLoggedIn: action.payload,
+      };
     default:
       return state;
   }

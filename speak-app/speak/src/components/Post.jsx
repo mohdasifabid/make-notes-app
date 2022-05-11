@@ -1,12 +1,13 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePostProvider } from "../postProvider";
 import { Navbar } from "./Navbar";
 import { Postcard } from "./PostCard";
-import { PostMaker } from "./PostMaker";
 
-export const LandingPage = () => {
-  const { state, dispatch } = usePostProvider();
+export const Post = () => {
+  const { state } = usePostProvider();
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     const token = localStorage.getItem("encodedToken");
     const getPosts = async () => {
@@ -16,7 +17,7 @@ export const LandingPage = () => {
         },
       });
       if (response.status === 200) {
-        dispatch({ type: "GET_POSTS", payload: response.data.posts });
+        setPosts(response.data.posts);
       }
     };
     getPosts();
@@ -24,10 +25,7 @@ export const LandingPage = () => {
   return (
     <div>
       <Navbar />
-      <PostMaker />
-      {state.posts.map((post) => {
-        return <Postcard item={post} key={post._id} />;
-      })}
+      <Postcard item={state.post} key={state.post._id} />
     </div>
   );
 };

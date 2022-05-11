@@ -1,21 +1,30 @@
-import { Navbar } from "./Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { Navbar } from "./Navbar";
+import { useAuthProvider } from "../authProvider";
 
 export const Signup = () => {
+  const { dispatch: authDispatch } = useAuthProvider();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const navigate = useNavigate();
 
-  const saveNewUserInfo = async () => {
+  const signupHandler = async () => {
     const response = await axios.post("/api/auth/signup", {
       name: name,
       email: email,
+      username: username,
       password: password,
     });
-    console.log(response);
+    if (response.status === 201) {
+      localStorage.setItem("encodedToken", response.data.encodedToken);
+      authDispatch({ type: "SIGN_UP_STATUS", payload: true });
+      navigate("/login");
+    }
   };
   return (
     <div>
@@ -42,6 +51,12 @@ export const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          type="text"
+          className="login-name"
+          placeholder="username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
           type="password"
           className="login-password"
           placeholder="password"
@@ -53,7 +68,7 @@ export const Signup = () => {
           placeholder="confirm password"
           onChange={(e) => setConfirmedPassword(e.target.value)}
         />
-        <button className="login-btn" onClick={saveNewUserInfo}>
+        <button className="login-btn" onClick={signupHandler}>
           Signup
         </button>
         <p>

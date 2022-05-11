@@ -2,18 +2,38 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { usePostProvider } from "../postProvider";
 import "./PostMaker.css";
+import axios from "axios";
 export const PostMaker = () => {
   const { state, dispatch } = usePostProvider();
   const [newPost, setNewPost] = useState("");
-  const postDetails = { id: uuid(), createdAt: new Date(), post: newPost };
+
+  const postThePost = async () => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      "/api/posts",
+      {
+        postData: {
+          content: newPost,
+        },
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    if (response.status === 201) {
+      dispatch({ type: "GET_POSTS", payload: response.data.posts });
+    }
+  };
   return (
     <div>
       <div className="avatar-textarea-container">
-        <div class="duck-avatar-badge duck-avatar-badge-l">
+        <div className="duck-avatar-badge duck-avatar-badge-l">
           <img
             src="https://picsum.photos/536/354"
             alt=""
-            class="duck-avatar-badge-img"
+            className="duck-avatar-badge-img"
           />
         </div>
         <textarea
@@ -27,12 +47,9 @@ export const PostMaker = () => {
       </div>
       <div className="bottom-container">
         <button
-          class="duck-primary-btn-s duck-primary-btn"
+          className="duck-primary-btn-s duck-primary-btn"
           onClick={() => {
-            dispatch({
-              type: "POSTS",
-              payload: postDetails,
-            });
+            postThePost();
             setNewPost("");
           }}
         >
